@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Matching Game</title>
+    </head>
+
+    <body onload="generateFaces()">
+
+        <style>
+            img {
+                position:absolute;
+            }
+
+            div {
+                position: absolute;
+                width: 500px;
+                height: 500px;
+            }
+
+            #rightside {
+                left: 500px;
+                border-left: 1px solid black;
+            }
+        </style>
+
+        <h1>Maguro</h1>
+        <p>Click the extra maguro on the left.</p>
+
+        <div id="leftside"></div>
+        <div id="rightside"></div>
+
+        <script>
+        var numberOfFaces = 5;
+        var theLeftSide = document.getElementById("leftside");
+        var theRightSide = document.getElementById("rightside");
+        var theBody = document.getElementsByTagName("body")[0];
+
+        function randomNumber() {
+            return Math.floor(Math.random()*401);
+        }
+
+        function generateFaces() {
+            for (i=0; i <= numberOfFaces; i++){
+                var x = randomNumber();
+                var y = randomNumber();
+                var smileImg = document.createElement("IMG");
+                smileImg.setAttribute("src", "https://image.yourdelivery.de/lieferando.de/service/13943/categories/47434/meals/408927/Nigiri-Sushi+Maguro-0-0.jpg");
+                smileImg.style.top = (y+"px");
+                smileImg.style.left = (x+"px");
+                theLeftSide.appendChild(smileImg);
+                if (i < numberOfFaces){continue;}
+                populateRight()
+            }
+        }
+
+        function populateRight() {
+            var clone = theLeftSide.cloneNode(true);
+            var lastFace = document.getElementsByTagName("IMG")[i];
+            lastFace.onclick = function(){endGame()};
+            clone.id = "rightSideKey";
+            theRightSide.appendChild(clone);
+            var finalRight = document.getElementById("rightSideKey")
+            finalRight.removeChild(finalRight.childNodes[i]);
+                }
+
+            function endGame(){
+                theRightSide.innerHTML = '';
+                theLeftSide.innerHTML = '';
+                event.stopPropagation();
+                numberOfFaces += 5;
+                generateFaces();
+            }
+
+            theBody.onclick = function gameOver(){
+                alert("Game Over!");
+                theBody.onclick = null;
+                theLeftSide.lastFace.onclick = null;
+            }
+
+        </script>
+
+    </body>
+
+</html>
