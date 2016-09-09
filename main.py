@@ -15,34 +15,16 @@
 # limitations under the License.
 #
 import webapp2
-import cgi
 
 form='''
-<form method="post">
-    What is your birthday?
-    <br>
-    <label>
-        Month
-        <input type="text" name="month" value="%(month)s">
-    </label>
-    <label>
-        Day
-        <input type="text" name="day" value="%(day)s">
-    </label>
-    <label>
-        Year
-        <input type="text" name="year" value="%(year)s">
-    </label>
-    <div style="color: red">%(error)s</div>
-
-    <br>
-    <br>
-    <input type="submit">
-</form>
+<body><p>hi</p></body>
 '''
-# class DateValidation():
-
 
 class MainHandler(webapp2.RequestHandler):
+    def write_form(self):
+        self.response.out.write(form)
+
+    def get(self):
+        self.write_form()
 
 app = webapp2.WSGIApplication([('/', MainHandler)], debug=True)
